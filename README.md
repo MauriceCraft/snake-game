@@ -4,7 +4,7 @@ A Google Snake-style browser game. Eat apples, grow long, and don't bite yoursel
 
 Built with plain HTML, CSS, and JavaScript on a 2D canvas. No frameworks, no build step, no dependencies.
 
-![Gameplay](output/web-game/02-after-eat.png)
+![Gameplay](docs/screenshot.png)
 
 ## Play
 
