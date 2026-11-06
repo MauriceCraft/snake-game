@@ -205,8 +205,10 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
   font-size: var(--text-base);
   color: #171a14;
   background: linear-gradient(in oklab, #b8e35f, #9ccc46);
-  border-radius: var(--radius-full, 9999px);
-  padding: var(--space-2) var(--space-8);
+  border-radius: 9999px;
+  padding: var(--space-3) var(--space-8);
+  min-height: 48px;
+  margin-top: var(--space-2);
   box-shadow: 0 3px 0 #578a34;
   transition: transform var(--transition-ui), box-shadow var(--transition-ui), filter var(--transition-ui);
 }
