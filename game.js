@@ -100,27 +100,27 @@ const btnSaveScore = document.getElementById('btn-save-score');
 const btnSkipScore = document.getElementById('btn-skip-score');
 
 /* ---------- Leaderboard storage ----------
-   Uses localStorage when available (e.g. on GitHub Pages).
-   In sandboxed previews storage is blocked, so it falls back to
-   in-memory for the session. */
-const LB_KEY = 'snake-leaderboard-v1';
+   Persists the top runs in a cookie (works on regular origins like
+   GitHub Pages). Where cookies are unavailable (e.g. sandboxed
+   preview iframes), it falls back to in-memory for the session. */
+const LB_COOKIE = 'snake_lb';
 const LB_SIZE = 5;
-const lbStore = (() => {
+const lbCookieOk = (() => {
   try {
-    const t = '__snake_probe__';
-    window.localStorage.setItem(t, t);
-    window.localStorage.removeItem(t);
-    return window.localStorage;
-  } catch { return null; }
+    document.cookie = '__snake_probe=1; path=/; max-age=60';
+    const ok = document.cookie.indexOf('__snake_probe') !== -1;
+    document.cookie = '__snake_probe=; path=/; max-age=0';
+    return ok;
+  } catch { return false; }
 })();
 let lbMemory = null;
 
 function lbLoad() {
-  if (lbStore) {
+  if (lbCookieOk) {
     try {
-      const raw = lbStore.getItem(LB_KEY);
-      if (raw) {
-        const v = JSON.parse(raw);
+      const m = document.cookie.match(new RegExp('(?:^|; )' + LB_COOKIE + '=([^;]*)'));
+      if (m) {
+        const v = JSON.parse(decodeURIComponent(m[1]));
         if (Array.isArray(v)) return v.filter((e) => e && typeof e.score === 'number');
       }
     } catch { /* fall through */ }
@@ -129,8 +129,11 @@ function lbLoad() {
 }
 function lbPersist(list) {
   lbMemory = list.slice();
-  if (lbStore) {
-    try { lbStore.setItem(LB_KEY, JSON.stringify(list)); } catch { /* session only */ }
+  if (lbCookieOk) {
+    try {
+      document.cookie = LB_COOKIE + '=' + encodeURIComponent(JSON.stringify(list)) +
+        '; path=/; max-age=31536000; SameSite=Lax';
+    } catch { /* session only */ }
   }
 }
 function lbQualifies(score) {
