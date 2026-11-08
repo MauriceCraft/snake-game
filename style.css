@@ -144,6 +144,7 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
   display: flex;
   align-items: center;
   justify-content: center;
+  line-height: 1.6;
   background: rgba(23, 26, 20, 0.55);
   backdrop-filter: blur(3px);
   opacity: 1;
@@ -216,6 +217,172 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
 .btn:hover { filter: brightness(1.05); }
 .btn:active { transform: translateY(3px); box-shadow: 0 0 0 #578a34; }
 .btn:focus-visible { outline: 2px solid var(--color-text); outline-offset: 3px; }
+
+/* ============ Mode selector ============ */
+.mode-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-1);
+  max-width: 340px;
+}
+
+.mode-chip {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  padding: var(--space-1) var(--space-3);
+  transition: color var(--transition-ui), border-color var(--transition-ui), background var(--transition-ui);
+}
+
+.mode-chip:hover { color: var(--color-text); }
+
+.mode-chip.is-active {
+  color: #171a14;
+  background: var(--board-light);
+  border-color: var(--board-light);
+  font-weight: 700;
+}
+
+.mode-chip:focus-visible { outline: 2px solid var(--color-text); outline-offset: 2px; }
+
+.mode-desc {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-align: center;
+  min-height: 2.6em;
+  max-width: 36ch;
+  margin-top: calc(-1 * var(--space-1));
+}
+
+/* ============ Visually hidden (a11y) ============ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ============ Secondary button ============ */
+.btn-ghost {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  padding: var(--space-2) var(--space-4);
+  min-height: 36px;
+  transition: color var(--transition-ui), border-color var(--transition-ui);
+}
+
+.btn-ghost:hover { color: var(--color-text); }
+.btn-ghost:focus-visible { outline: 2px solid var(--color-text); outline-offset: 2px; }
+
+/* ============ Leaderboard ============ */
+.lb-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: min(300px, 70vw);
+}
+
+.lb-row {
+  display: grid;
+  grid-template-columns: 28px 1fr auto auto;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  padding: var(--space-2) var(--space-3);
+  min-height: 36px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.lb-row.is-new { background: rgba(170, 215, 81, 0.18); }
+
+.lb-rank {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.lb-name {
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lb-score {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.lb-mode {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.lb-empty {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: var(--space-4) 0;
+}
+
+.lb-mini { display: flex; flex-direction: column; gap: var(--space-2); margin-top: var(--space-1); }
+
+.lb-mini.hidden { display: none; }
+
+.lb-mini-title {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ============ Name entry ============ */
+.name-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.name-row.hidden { display: none; }
+
+#name-input {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  padding: var(--space-2) var(--space-4);
+  width: 150px;
+}
+
+#name-input:focus {
+  outline: none;
+  border-color: var(--board-light);
+}
+
+#name-input::placeholder { color: var(--color-text-faint, #6a7a5a); }
 
 .footnote-row {
   display: flex;
